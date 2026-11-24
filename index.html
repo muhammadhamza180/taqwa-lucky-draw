@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Taqwa Farewell 2026 | Lucky Draw</title>
+<meta name="theme-color" content="#0a0a0d">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#0a0a0d;color:#f1f3f6;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+.scr{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px;text-align:center}
+.scr.on{display:flex}
+.gold{background:linear-gradient(100deg,#8a6a1c,#f6dc8b 35%,#fff4bd 50%,#d9b34a 65%,#8a6a1c);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite}
+@keyframes sh{to{background-position:-250% 0}}
+h1{font-family:Georgia,serif;font-size:clamp(26px,8.6vw,42px);line-height:1.05}
+h2{font-family:Georgia,serif;font-size:28px;line-height:1.15}
+p{font-size:17px;color:#cfd4dc;line-height:1.45;max-width:340px}
+.k{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#9aa0ab}
+.btn{border:0;border-radius:99px;padding:16px 34px;font-size:18px;font-weight:800;color:#1a1206;background:linear-gradient(#fff4bd,#d9b34a);box-shadow:0 0 30px rgba(246,220,139,.45);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.btn.s{background:linear-gradient(#fff,#b8bec9);animation:none;font-size:16px;padding:13px 26px}
+.wheel{width:220px;height:220px;border-radius:50%;border:8px solid #d9b34a;background:conic-gradient(#d9b34a 0 45deg,#1c1c22 45deg 90deg,#cfd4dc 90deg 135deg,#1c1c22 135deg 180deg,#d9b34a 180deg 225deg,#1c1c22 225deg 270deg,#cfd4dc 270deg 315deg,#1c1c22 315deg);box-shadow:0 0 40px rgba(246,220,139,.35)}
+.prize{font-size:64px}
+.bar{width:260px;height:12px;border-radius:9px;background:#22222a;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#d9b34a,#fff4bd)}
+#crack{position:fixed;inset:0;pointer-events:none;z-index:20;display:none}
+#err{position:fixed;inset:0;z-index:25;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(120,0,0,.0);text-align:center;padding:30px}
+#err .box{background:rgba(10,10,12,.88);border:2px solid #ff4b4b;border-radius:14px;padding:18px 20px;max-width:330px}
+#err b{color:#ff6b6b;font-size:22px;display:block;margin-bottom:6px}
+#err .cd{font-family:ui-monospace,Menlo,monospace;font-size:44px;font-weight:800;color:#fff;margin:12px 0 0;letter-spacing:.04em}
+#err .cl{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#9aa0ab}
+#err .pz{margin:14px 0 10px;padding:10px;border-radius:10px;background:#1a1a20;color:#fff4bd;font-size:15px;line-height:1.4}
+#err .fine{display:block;font-size:11px;color:#6b7080;margin-top:6px}
+body.locked .scr,body.locked .foot{filter:blur(2px) grayscale(.6)}
+.shake{animation:shk .5s}
+@keyframes shk{20%{transform:translate(-10px,6px)}40%{transform:translate(9px,-7px)}60%{transform:translate(-7px,-4px)}80%{transform:translate(6px,5px)}}
+.conf{position:fixed;top:-20px;width:10px;height:14px;z-index:30;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.foot{position:fixed;bottom:12px;left:0;right:0;text-align:center;font-size:11px;color:#6b7080;letter-spacing:.08em}
+.joke{background:#14141a;border:1px solid rgba(217,179,74,.5);border-radius:16px;padding:20px;max-width:340px;min-height:120px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.joke .e{font-size:44px}.joke .t{font-size:19px;font-weight:700;color:#fff4bd}.joke .s{font-size:14px;color:#9aa0ab}
+</style></head><body>
+<section class="scr on" id="s1">
+  <div class="k">Taqwa Farewell 2026 | Lucky Draw</div>
+  <h1 class="gold">CONGRATULATIONS!</h1>
+  <p>You are the <b style="color:#fff4bd">1,000,000th</b> person to scan this code. A grand prize is reserved in your name.</p>
+  <div class="wheel" id="wheel"></div>
+  <button class="btn" id="go">Spin and claim my prize</button>
+</section>
+<section class="scr" id="s2">
+  <div class="k">Verifying your luck</div>
+  <h2 class="gold" id="vt">Checking attendance record...</h2>
+  <div class="bar"><i id="vb"></i></div>
+  <p id="vs">Please do not close this page. The principal is watching.</p>
+</section>
+<section class="scr" id="s3">
+  <div class="k">Your official prize</div>
+  <div class="joke" id="jk"></div>
+  <button class="btn s" id="again">Try my luck again</button>
+  <p style="font-size:13px;color:#6b7080">Prizes have no cash value. Or any value.</p>
+</section>
+<svg id="crack"></svg>
+<div id="err"><div class="box"><b>SCREEN DAMAGE DETECTED</b>Your phone could not handle this much luck.<br>It is now locked for repairs.<div class="cd" id="cd">10:00:00</div><span class="cl">until the screen is fixed</span><div class="pz" id="pz"></div><span class="fine">Prank by Batch 3. Your phone is totally fine, just close this tab. 😄</span></div></div>
+<div class="foot">Made with love by Batch 3 for Batch 2 | Taqwa Institute of Physiotherapy &amp; Health Sciences</div>
+<script>
+const J=[["🍛","One plate of biryani","Sorry, HAT Foundation finished it 10 minutes ago."],["📋","100% attendance","Terms: attend every single class. Forever."],["🥣","Free kheer coupon","Valid only after the kheer is finished."],
+["🦍","A selfie with the gorilla","He has requested no flash photography."],["📝","Viva postponed!","Just kidding. It is tomorrow. 8 AM."],["🎤","Front row seats to Chand Nawab","Cotton buds not included."],
+["🏍️","A bike ride with Hamdan","Destination: Mandi Bahauddin. No return ticket."],["🍎","Shares in Khurram Pomegranate Ltd","Current value: one pomegranate. Half eaten."],["📚","The seniors' notes","Batch 2 says they will return them. Eventually."],
+["🧾","Exit fee waiver","You still owe Rs 10,000 for Chand Nawab's concert."],["🇺🇸","Dinner with Donald Drum","He already took both plates."],["🤍","A lifetime of memories","This one is actually real. Thank you, Batch 2."]];
+const $=i=>document.getElementById(i);
+let AC=null; function ac(){ try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} return AC; }
+function crackSound(){ const a=ac(); if(!a) return; const n=a.sampleRate*.6, b=a.createBuffer(1,n,a.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++){ const t=i/a.sampleRate; d[i]=(Math.random()*2-1)*Math.exp(-t*9)*(Math.random()<.3?1:.4); }
+  const s=a.createBufferSource(); s.buffer=b; const f=a.createBiquadFilter(); f.type="highpass"; f.frequency.value=900; s.connect(f).connect(a.destination); s.start(); }
+function tada(){ const a=ac(); if(!a) return; [523,659,784,1047].forEach((f,i)=>{ const o=a.createOscillator(), g=a.createGain(); o.type="triangle"; o.frequency.value=f; g.gain.setValueAtTime(0,a.currentTime+i*.12); g.gain.linearRampToValueAtTime(.25,a.currentTime+i*.12+.02); g.gain.exponentialRampToValueAtTime(.001,a.currentTime+i*.12+.5); o.connect(g).connect(a.destination); o.start(a.currentTime+i*.12); o.stop(a.currentTime+i*.12+.6); }); }
+function confetti(){ const c=["#f6dc8b","#d9b34a","#fff","#cfd4dc","#e7a9bd"]; for(let i=0;i<70;i++){ const e=document.createElement("i"); e.className="conf"; e.style.left=Math.random()*100+"vw"; e.style.background=c[i%5]; e.style.animationDuration=(1.6+Math.random()*1.8)+"s"; e.style.animationDelay=Math.random()*.6+"s"; document.body.appendChild(e); setTimeout(()=>e.remove(),4200); } }
+function crack(x,y){ const s=$("crack"), W=innerWidth, H=innerHeight; s.setAttribute("viewBox",`0 0 ${W} ${H}`); let p="";
+  for(let k=0;k<16;k++){ let a=k/16*Math.PI*2+Math.random()*.3, cx=x, cy=y, L=60+Math.random()*Math.max(W,H)*.8; let d=`M${x} ${y}`;
+    for(let j=0;j<8;j++){ a+=(Math.random()-.5)*.6; cx+=Math.cos(a)*L/8; cy+=Math.sin(a)*L/8; d+=` L${cx.toFixed(0)} ${cy.toFixed(0)}`;
+      if(Math.random()<.35){ const b=a+(Math.random()<.5?1:-1)*(.6+Math.random()*.6); p+=`<path d="M${cx.toFixed(0)} ${cy.toFixed(0)} l${(Math.cos(b)*50).toFixed(0)} ${(Math.sin(b)*50).toFixed(0)}"/>`; } }
+    p+=`<path d="${d}"/>`; }
+  for(let r=1;r<4;r++){ p+=`<circle cx="${x}" cy="${y}" r="${r*28+Math.random()*10}" fill="none" stroke-dasharray="${8+r*6} ${10+r*8}"/>`; }
+  s.innerHTML=`<g stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 2px #000)">${p}</g><circle cx="${x}" cy="${y}" r="14" fill="rgba(255,255,255,.85)"/>`;
+  s.style.display="block"; document.body.classList.add("shake"); crackSound(); if(navigator.vibrate) navigator.vibrate([80,40,160]); }
+let jn=Math.floor(Math.random()*J.length);
+function showJoke(){ const j=J[jn++%J.length]; $("jk").innerHTML=`<div class="e">${j[0]}</div><div class="t">You won: ${j[1]}</div><div class="s">${j[2]}</div>`; }
+function show(id){ document.querySelectorAll(".scr").forEach(s=>s.classList.toggle("on",s.id===id)); }
+const LOCK_KEY="taqwaCrackUntil", LOCK_MS=10*3600*1000;
+function lockScreen(fresh){ let until=+localStorage.getItem(LOCK_KEY)||0; if(fresh||until<Date.now()){ until=Date.now()+LOCK_MS; try{localStorage.setItem(LOCK_KEY,until)}catch(e){} }
+  document.body.classList.add("locked"); crack(innerWidth*.62,innerHeight*.38); $("err").style.display="flex";
+  const j=J[Math.floor(Math.random()*J.length)]; $("pz").innerHTML=`${j[0]} <b style="color:#fff4bd;font-size:15px;display:inline">You won: ${j[1]}</b><br><span style="color:#9aa0ab">${j[2]}</span>`;
+  const tick=()=>{ const r=Math.max(0,until-Date.now()), h=Math.floor(r/3600000), m=Math.floor(r%3600000/60000), sc=Math.floor(r%60000/1000); $("cd").textContent=[h,m,sc].map(v=>String(v).padStart(2,"0")).join(":"); };
+  tick(); setInterval(tick,1000); }
+let extra=0;
+document.addEventListener("click",e=>{ if(!document.body.classList.contains("locked")) return; e.preventDefault(); extra++; const s=$("crack"); const old=s.innerHTML; crack(e.clientX,e.clientY); s.innerHTML=old+s.innerHTML; setTimeout(()=>document.body.classList.remove("shake"),500); },true);
+$("go").onclick=e=>{ ac(); tada(); $("wheel").style.transition="transform 2.4s cubic-bezier(.2,.8,.2,1)"; $("wheel").style.transform="rotate(1800deg)";
+  setTimeout(()=>{ show("s2"); const msg=["Checking attendance record...","Asking Dr. Shamma for approval...","Confirming with HAT Foundation...","Calculating your luck..."]; let k=0;
+    const iv=setInterval(()=>{ k++; $("vb").style.width=Math.min(97,k*4)+"%"; $("vt").textContent=msg[Math.floor(k/7)%msg.length]; if(k===26){ clearInterval(iv); lockScreen(true); } },110); },2500); };
+if((+localStorage.getItem(LOCK_KEY)||0)>Date.now()) lockScreen(false);
+</script>
+</body></html>
