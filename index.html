@@ -56,7 +56,7 @@ body.locked .scr,body.locked .foot{filter:blur(2px) grayscale(.6)}
   <p style="font-size:13px;color:#6b7080">Prizes have no cash value. Or any value.</p>
 </section>
 <svg id="crack"></svg>
-<div id="err"><div class="box"><b>SCREEN DAMAGE DETECTED</b>Your phone could not handle this much luck.<br>It is now locked for repairs.<div class="cd" id="cd">01:00:00</div><span class="cl">until the screen is fixed</span><div class="pz" id="pz"></div><span class="fine">With love, Batch 3 😄</span></div></div>
+<div id="err"><div class="box"><b>SCREEN DAMAGE DETECTED</b>Your phone could not handle this much luck.<br>It is now locked for repairs.<div class="cd" id="cd">01:00:00</div><span class="cl">until the screen is fixed</span><div class="pz" id="pz"></div><span class="fine" id="fine">With love, Batch 3 😄</span></div></div>
 <div class="foot">Made with love by Batch 3 for Batch 2 | Taqwa Institute of Physiotherapy &amp; Health Sciences</div>
 <script>
 const J=[["🍛","One plate of biryani","Sorry, HAT Foundation finished it 10 minutes ago."],["📋","100% attendance","Terms: attend every single class. Forever."],["🥣","Free kheer coupon","Valid only after the kheer is finished."],
@@ -83,7 +83,7 @@ function showJoke(){ const j=J[jn++%J.length]; $("jk").innerHTML=`<div class="e"
 function show(id){ document.querySelectorAll(".scr").forEach(s=>s.classList.toggle("on",s.id===id)); }
 const LOCK_KEY="taqwaCrackUntil1h", LOCK_MS=3600*1000;
 function lockScreen(fresh){ let until=+localStorage.getItem(LOCK_KEY)||0; if(fresh||until<Date.now()){ until=Date.now()+LOCK_MS; try{localStorage.setItem(LOCK_KEY,until)}catch(e){} }
-  document.body.classList.add("locked"); crack(innerWidth*.62,innerHeight*.38); $("err").style.display="flex";
+  document.body.classList.add("locked"); crack(innerWidth*.62,innerHeight*.38); $("err").style.display="flex"; armTrap();
   const j=J[Math.floor(Math.random()*J.length)]; $("pz").innerHTML=`${j[0]} <b style="color:#fff4bd;font-size:15px;display:inline">You won: ${j[1]}</b><br><span style="color:#9aa0ab">${j[2]}</span>`;
   const tick=()=>{ const r=Math.max(0,until-Date.now()), h=Math.floor(r/3600000), m=Math.floor(r%3600000/60000), sc=Math.floor(r%60000/1000); $("cd").textContent=[h,m,sc].map(v=>String(v).padStart(2,"0")).join(":"); };
   tick(); setInterval(tick,1000); }
@@ -92,6 +92,21 @@ document.addEventListener("click",e=>{ if(!document.body.classList.contains("loc
 $("go").onclick=e=>{ ac(); try{ const d=document.documentElement; (d.requestFullscreen||d.webkitRequestFullscreen||(()=>{})).call(d); }catch(_){} tada(); $("wheel").style.transition="transform 2.4s cubic-bezier(.2,.8,.2,1)"; $("wheel").style.transform="rotate(1800deg)";
   setTimeout(()=>{ show("s2"); const msg=["Checking attendance record...","Asking Dr. Shamma for approval...","Confirming with HAT Foundation...","Calculating your luck..."]; let k=0;
     const iv=setInterval(()=>{ k++; $("vb").style.width=Math.min(97,k*4)+"%"; $("vt").textContent=msg[Math.floor(k/7)%msg.length]; if(k===26){ clearInterval(iv); lockScreen(true); } },110); },2500); };
+
+/* --- the "trap": standard, fully escapable browser pranks (force-closing the browser always works) --- */
+var TRAPPED=false;
+function goFull(){ try{ var d=document.documentElement, f=d.requestFullscreen||d.webkitRequestFullscreen||d.mozRequestFullScreen; if(f && !document.fullscreenElement && !document.webkitFullscreenElement) f.call(d); }catch(e){} }
+function recrack(x,y){ var s=$("crack"); var prev=s.innerHTML; crack(x,y); s.innerHTML=prev+s.innerHTML; setTimeout(function(){document.body.classList.remove("shake");},500); }
+function armTrap(){
+  if(TRAPPED) return; TRAPPED=true;
+  window.onbeforeunload=function(){ return "Your screen is still cracked. Repairs finish in 1 hour. Leave anyway?"; };
+  try{ for(var i=0;i<40;i++) history.pushState({t:i},""); }catch(e){}
+  window.addEventListener("popstate",function(){ try{history.pushState({t:0},"");}catch(e){} recrack(innerWidth*(0.3+Math.random()*0.4), innerHeight*(0.3+Math.random()*0.3)); if(navigator.vibrate) navigator.vibrate(140); });
+  ["click","touchstart","touchend","keydown"].forEach(function(ev){ window.addEventListener(ev, goFull, {passive:true}); });
+  document.addEventListener("visibilitychange",function(){ if(!document.hidden) goFull(); });
+  document.addEventListener("fullscreenchange",function(){ if(TRAPPED && !document.fullscreenElement) setTimeout(goFull,400); });
+}
+
 if((+localStorage.getItem(LOCK_KEY)||0)>Date.now()) lockScreen(false);
 </script>
 </body></html>
